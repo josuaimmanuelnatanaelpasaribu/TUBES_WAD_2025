@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Login</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f4f7f6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .login-container {
+            background-color: #ffffff;
+            padding: 30px 40px;
+            border-radius: 10px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .login-container h2 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 25px;
+            font-weight: 600;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-weight: 500;
+            font-size: 0.95em;
+        }
+
+        .form-group input[type="email"],
+        .form-group input[type="password"],
+        .form-group input[type="text"] /* for when password becomes text */
+        {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            box-sizing: border-box;
+            font-size: 1em;
+            transition: border-color 0.3s;
+        }
+        
+        .form-group input[type="password"],
+        .form-group input[type="text"][name="password"] /* Style text input if it was a password */
+        {
+            padding-right: 45px; /* Space for eye icon */
+        }
+
+        .form-group input:focus {
+            border-color: #007bff;
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.2);
+        }
+
+        .password-toggle {
+            position: absolute;
+            top: 50%;
+            right: 15px;
+            transform: translateY(20%);
+            cursor: pointer;
+            color: #888;
+            font-size: 1.2em;
+        }
+
+        .btn-login {
+            width: 100%;
+            padding: 12px 15px;
+            background-color: #28a745; /* Green color for login */
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1.1em;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .btn-login:hover {
+            background-color: #1e7e34;
+        }
+
+        .error-message {
+            color: #dc3545;
+            font-size: 0.85em;
+            margin-top: 5px;
+            display: block; /* Ensure it takes its own line */
+        }
+        
+        #loginErrorGlobal {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 480px) {
+            .login-container {
+                margin: 20px;
+                padding: 25px;
+            }
+            .password-toggle {
+                transform: translateY(15%);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h2>Login</h2>
+        <form id="loginForm">
+            <div class="form-group">
+                <span class="error-message" id="loginErrorGlobal"></span>
+            </div>
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" required>
+                <span class="error-message" id="emailError"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+                <span class="password-toggle" onclick="togglePasswordVisibility(\'password\', \'toggleIconPassword\')">
+                     <svg id="toggleIconPassword" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-eye-slash-fill" viewBox="0 0 16 16">
+                        <path d="m10.79 12.912-1.614-1.615a3.5 3.5 0 0 1-4.474-4.474l-2.06-2.06C.938 6.278 0 8 0 8s3 5.5 8 5.5a7.029 7.029 0 0 0 2.79-.588M5.21 3.088A7.028 7.028 0 0 1 8 2.5c5 0 8 5.5 8 5.5s-.939 1.721-2.641 3.238l-2.062-2.062a3.5 3.5 0 0 0-4.474-4.474L5.21 3.089z"/>
+                        <path d="M5.525 7.646a2.5 2.5 0 0 0 2.829 2.829l-2.83-2.829zm4.95.708-2.829-2.83a2.5 2.5 0 0 1 2.829 2.829zm3.171 6-12-12 .708-.708 12 12z"/>
+                    </svg>
+                </span>
+                <span class="error-message" id="passwordError"></span>
+            </div>
+
+            <button type="submit" class="btn-login">Login</button>
+        </form>
+         <div style="text-align: center; margin-top: 20px;">
+            <p>Don\'t have an account? <a href="register.html">Register here</a></p>
+        </div>
+    </div>
+
+    <script>
+        // SVG icons for password visibility toggle
+        const eyeIconSVG = `
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
+                <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0"/>
+                <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7"/>
+            </svg>`;
+        const eyeSlashIconSVG = `
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-eye-slash-fill" viewBox="0 0 16 16">
+                <path d="m10.79 12.912-1.614-1.615a3.5 3.5 0 0 1-4.474-4.474l-2.06-2.06C.938 6.278 0 8 0 8s3 5.5 8 5.5a7.029 7.029 0 0 0 2.79-.588M5.21 3.088A7.028 7.028 0 0 1 8 2.5c5 0 8 5.5 8 5.5s-.939 1.721-2.641 3.238l-2.062-2.062a3.5 3.5 0 0 0-4.474-4.474L5.21 3.089z"/>
+                <path d="M5.525 7.646a2.5 2.5 0 0 0 2.829 2.829l-2.83-2.829zm4.95.708-2.829-2.83a2.5 2.5 0 0 1 2.829 2.829zm3.171 6-12-12 .708-.708 12 12z"/>
+            </svg>`;
+
+        function togglePasswordVisibility(fieldId, iconId) {
+            const passwordField = document.getElementById(fieldId);
+            const toggleIconContainer = document.getElementById(iconId).parentNode; // Get the span
+            
+            if (passwordField.type === "password") {
+                passwordField.type = "text";
+                toggleIconContainer.innerHTML = eyeIconSVG;
+            } else {
+                passwordField.type = "password";
+                toggleIconContainer.innerHTML = eyeSlashIconSVG;
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const form = document.getElementById('loginForm');
+
+            // Simulated user data (in a real app, this would be checked on the server)
+            const users = {
+                "admin@example.com": { password: "AdminPass123!", role: "admin" },
+                "user@example.com": { password: "UserPass123!", role: "user" }
+            };
+
+            form.addEventListener('submit', function (event) {
+                event.preventDefault();
+                if (validateForm()) {
+                    const email = document.getElementById('email').value.trim();
+                    const password = document.getElementById('password').value;
+                    
+                    // Simulate login
+                    if (users[email] && users[email].password === password) {
+                        if (users[email].role === 'admin') {
+                            alert('Logged in as Administrator!');
+                            // Simulate redirection
+                            window.location.href = 'admin_dashboard.html'; 
+                        } else {
+                            alert('Logged in as User!');
+                            // Simulate redirection
+                            window.location.href = 'user_home.html'; 
+                        }
+                    } else {
+                        displayError('loginErrorGlobal', 'Invalid email or password.');
+                    }
+                }
+            });
+
+            function validateForm() {
+                let isValid = true;
+                clearAllErrors();
+
+                const email = document.getElementById('email').value.trim();
+                if (email === '') {
+                    displayError('emailError', 'Email Address is required.');
+                    isValid = false;
+                } else if (!isValidEmail(email)) {
+                    displayError('emailError', 'Please enter a valid email address.');
+                    isValid = false;
+                }
+
+                const password = document.getElementById('password').value;
+                if (password === '') {
+                    displayError('passwordError', 'Password is required.');
+                    isValid = false;
+                }
+                return isValid;
+            }
+
+            function isValidEmail(email) {
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                return emailRegex.test(email);
+            }
+
+            function displayError(elementId, message) {
+                document.getElementById(elementId).textContent = message;
+            }
+            
+            function clearAllErrors() {
+                document.getElementById('loginErrorGlobal').textContent = '';
+                document.getElementById('emailError').textContent = '';
+                document.getElementById('passwordError').textContent = '';
+            }
+        });
+    </script>
+</body>
+</html> 
