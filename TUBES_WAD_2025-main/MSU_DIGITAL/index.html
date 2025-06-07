@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MSU Digital Quran</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="logo">
+                <img src="logo.png" alt="Logo">
+                <span>Dashboard</span>
+            </div>
+            <nav class="top-nav">
+                <a href="#">Acara</a>
+                <a href="#">Ganti Bahasa</a>
+                <button class="login-btn">Login</button>
+            </nav>
+        </header>
+        <aside class="sidebar">
+            <div class="sidebar-search">
+                <input type="text" placeholder="Value">
+                <button class="clear-search-btn">X</button>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="#" class="active">Dashboard</a></li>
+                    <li><a href="#">Daftar Juz</a></li>
+                    <li><a href="#">Daftar Surah</a></li>
+                </ul>
+            </nav>
+        </aside>
+        <main class="main-content">
+            <div class="content-display">
+                <!-- Content for displaying verses, search results will go here -->
+            </div>
+            <div class="history-section">
+                <h2>History Bacaan</h2>
+                <div class="history-controls">
+                    <input type="text" placeholder="Search">
+                    <select>
+                        <option value="terbaru">Terbaru</option>
+                        <option value="terlama">Terlama</option>
+                    </select>
+                </div>
+                <table class="history-table">
+                    <thead>
+                        <tr>
+                            <th>User</th>
+                            <th>Surah</th>
+                            <th>Ayat</th>
+                            <th>Tanggal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>2</td>
+                            <td>Al-Baqarah</td>
+                            <td>175</td>
+                            <td>24/5</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>Al-Imran</td>
+                            <td>10</td>
+                            <td>1/5</td>
+                        </tr>
+                        <tr>
+                            <td>6</td>
+                            <td>Al-Maidah</td>
+                            <td>50</td>
+                            <td>15/2</td>
+                        </tr>
+                        <tr>
+                            <td>7</td>
+                            <td>Al-An'am</td>
+                            <td>100</td>
+                            <td>25/4</td>
+                        </tr>
+                        <tr>
+                            <td>12</td>
+                            <td>Al-Taubah</td>
+                            <td>90</td>
+                            <td>1/4</td>
+                        </tr>
+                        <!-- More history items will be added here -->
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html> 
