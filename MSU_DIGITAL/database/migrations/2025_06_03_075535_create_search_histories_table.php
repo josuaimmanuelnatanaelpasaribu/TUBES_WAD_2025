@@ -14,7 +14,10 @@ return new class extends Migration
         Schema::create('search_histories', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->string('keyword');
             $table->string('query');
+            $table->string('label')->nullable();
+            $table->boolean('is_bookmarked')->default(false);
             $table->timestamp('timestamp')->useCurrent();
             // Tidak ada updated_at karena timestamp sudah mencakup waktu pencarian
         });

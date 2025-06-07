@@ -13,6 +13,8 @@ class SearchHistory extends Model
     protected $fillable = [
         'user_id',
         'query',
+        'label',
+        'is_bookmarked',
         // 'timestamp' diatur oleh database, tidak perlu fillable
     ];
 

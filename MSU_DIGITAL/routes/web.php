@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\JuzManagementController;
 use App\Http\Controllers\User\JuzController;
 use App\Http\Controllers\User\FavoriteSuratController;
 use App\Http\Controllers\Admin\AudioEditionController;
+use App\Http\Controllers\User\SearchController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,6 +30,14 @@ Route::middleware(['guest'])->group(function () {
     Route::post('/login', [AuthController::class, 'login'])->name('login.submit');
     Route::post('/register', [AuthController::class, 'register'])->name('register.submit');
 });
+
+Route::middleware(['auth'])->prefix('search')->group(function () {
+    Route::get('/', [SearchController::class, 'search'])->name('search.q');
+    Route::post('/{id}/bookmark', [SearchController::class, 'bookmark'])->name('search.bookmark');
+    Route::post('/{id}/rename', [SearchController::class, 'rename'])->name('search.rename');
+    Route::delete('/{id}', [SearchController::class, 'destroy'])->name('search.delete');
+});
+
 
 // Protected Routes (require authentication)
 Route::middleware(['auth'])->group(function () {
