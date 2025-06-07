@@ -47,10 +47,16 @@
 
 @section('content')
 <div class="container mt-4">
-    <div class="row mb-4">
-        <div class="col-12">
-            <h1 class="h3 mb-2">Al-Quran Digital</h1>
+    <div class="row mb-2">
+        <div class="col-md-8">
+            <h1 class="h3 mb-0">Al-Quran Digital</h1>
             <p class="text-muted">Baca, tandai, dan buat catatan untuk ayat-ayat Al-Quran</p>
+        </div>
+        <div class="col-md-4 d-flex align-items-center justify-content-end">
+            <form action="{{ route('search.q') }}" method="GET" class="d-flex">
+                <input type="text" name="q" class="form-control me-2" placeholder="Cari surat/ayat..." required>
+                <button type="submit" class="btn btn-success">🔍</button>
+            </form>
         </div>
     </div>
 
@@ -112,4 +118,4 @@ document.addEventListener('DOMContentLoaded', function() {
     // Add any JavaScript functionality here if needed
 });
 </script>
-@endpush 
+@endpush
